@@ -1,0 +1,38 @@
+node_modules/
+dist/
+out/
+*.log
+.DS_Store
+Thumbs.db
+test/e2e/screenshots/
+coverage/
+
+# Secrets and signing material: never commit these
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+*.keystore
+*.mobileprovision
+
+# Media and marketing material that is not part of the app
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
+*.mp3
+*.wav
+*.m4a
+*.psd
+
+# Editor and tool files
+.vscode/
+.idea/
+*.swp
+*~
+.claude/settings.local.json

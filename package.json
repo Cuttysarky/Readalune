@@ -1,0 +1,168 @@
+{
+  "name": "readalune",
+  "productName": "Readalune",
+  "version": "1.0.0",
+  "description": "Your personal desktop reading room. Import your own text, Markdown, HTML, EPUB and PDF files and read them as beautifully paginated books — offline, private, and open source.",
+  "main": "src/main/main.js",
+  "author": "Cuttysarky",
+  "license": "MIT",
+  "homepage": "https://github.com/cuttysarky/readalune",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cuttysarky/readalune.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cuttysarky/readalune/issues"
+  },
+  "keywords": [
+    "ebook",
+    "reader",
+    "pdf",
+    "epub",
+    "electron",
+    "offline",
+    "reading"
+  ],
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "electron .",
+    "preview": "node scripts/preview/server.mjs",
+    "test": "node --test \"test/unit/*.test.mjs\"",
+    "test:e2e": "node test/e2e/run-e2e.mjs",
+    "check": "node scripts/security-check.mjs",
+    "verify": "npm run check && npm test && npm audit --omit=dev",
+    "icons": "electron scripts/render-icons.cjs",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "dependencies": {
+    "pdfjs-dist": "6.4.299"
+  },
+  "devDependencies": {
+    "electron": "44.10.2",
+    "electron-builder": "26.17.0",
+    "playwright-core": "1.64.1"
+  },
+  "build": {
+    "appId": "io.github.cuttysarky.readalune",
+    "productName": "Readalune",
+    "copyright": "Copyright © 2026 Cuttysarky and Readalune contributors",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "artifactName": "Readalune-${version}-${os}-${arch}.${ext}",
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE",
+      "NOTICE.md",
+      "node_modules/pdfjs-dist/build/pdf.min.mjs",
+      "node_modules/pdfjs-dist/build/pdf.worker.min.mjs",
+      "node_modules/pdfjs-dist/cmaps/**/*",
+      "node_modules/pdfjs-dist/LICENSE",
+      "node_modules/pdfjs-dist/package.json",
+      "!node_modules/@napi-rs{,/**/*}",
+      "!node_modules/pdfjs-dist/{legacy,web,image_decoders,types,standard_fonts,wasm,iccs}{,/**/*}",
+      "!node_modules/pdfjs-dist/build/{pdf.mjs,pdf.worker.mjs,pdf.sandbox.mjs,pdf.sandbox.min.mjs}",
+      "!node_modules/pdfjs-dist/build/*.map",
+      "!node_modules/pdfjs-dist/{README.md,CODE_OF_CONDUCT.md,webpack.mjs}"
+    ],
+    "extraResources": [
+      {
+        "from": "LICENSE",
+        "to": "LICENSE.txt"
+      },
+      {
+        "from": "NOTICE.md",
+        "to": "NOTICE.md"
+      },
+      {
+        "from": "LEGAL.md",
+        "to": "LEGAL.md"
+      },
+      {
+        "from": "PRIVACY.md",
+        "to": "PRIVACY.md"
+      },
+      {
+        "from": "CLASSICS.md",
+        "to": "CLASSICS.md"
+      }
+    ],
+    "asar": true,
+    "npmRebuild": false,
+    "publish": null,
+    "electronFuses": {
+      "runAsNode": false,
+      "enableCookieEncryption": true,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true,
+      "resetAdHocDarwinSignature": true,
+      "grantFileProtocolExtraPrivileges": false
+    },
+    "fileAssociations": [
+      {
+        "ext": "epub",
+        "name": "EPUB book",
+        "description": "EPUB book",
+        "mimeType": "application/epub+zip",
+        "role": "Viewer",
+        "rank": "Alternate"
+      },
+      {
+        "ext": "cbz",
+        "name": "Comic book archive",
+        "description": "Comic book archive",
+        "mimeType": "application/vnd.comicbook+zip",
+        "role": "Viewer",
+        "rank": "Alternate"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE",
+      "artifactName": "Readalune-Setup-${version}-${arch}.${ext}",
+      "deleteAppDataOnUninstall": false
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.books",
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Office",
+      "icon": "build/icon.png",
+      "maintainer": "Cuttysarky",
+      "synopsis": "Your personal desktop reading room"
+    },
+    "portable": {
+      "artifactName": "Readalune-Portable-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "Readalune ${version}"
+    }
+  }
+}

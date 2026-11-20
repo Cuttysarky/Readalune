@@ -1,0 +1,235 @@
+/* Generated covers. Drawn from classes chosen in js/ui/cover.js:
+   c-N palette, l-N layout, p-N pattern, e-N ornament, t-N type style, s-N title size.
+   The emblem (.gen-emb) holds either a story motif, as an inline SVG path, or the ornament.
+   Every length is in cqw (1% of the cover's width), so a cover looks the same at any size. */
+
+.cover {
+  container-type: inline-size;
+}
+
+.gen-cover {
+  --bg: #1f2f63;
+  --bg2: #121c40;
+  --ink: #f2ead6;
+  --foil: #e0c684;
+  --pc: color-mix(in srgb, var(--foil) 30%, transparent);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: linear-gradient(165deg, var(--bg), var(--bg2));
+  font-family: var(--font-display);
+}
+
+/* ------------------------------------------------------------ palettes: cloth, deep tone, lettering, foil */
+.c-1 { --bg: #7a2230; --bg2: #4f121d; --ink: #f6ead2; --foil: #e2c27d; }
+.c-2 { --bg: #1f4d3b; --bg2: #12301f; --ink: #f3ead3; --foil: #dcc07a; }
+.c-3 { --bg: #1f2f63; --bg2: #121c40; --ink: #f2ead6; --foil: #e0c684; }
+.c-4 { --bg: #55285e; --bg2: #331638; --ink: #f5e7df; --foil: #e8b9a3; }
+.c-5 { --bg: #135a66; --bg2: #0a3941; --ink: #f1ecd8; --foil: #f0d9a0; }
+.c-6 { --bg: #dba944; --bg2: #c58d2c; --ink: #2b1c08; --foil: #5a2a12; }
+.c-7 { --bg: #efe4c9; --bg2: #e0d0a8; --ink: #5d1a22; --foil: #9a3a2c; }
+.c-8 { --bg: #36414f; --bg2: #1f2731; --ink: #eef0f2; --foil: #c8d0da; }
+.c-9 { --bg: #b0502f; --bg2: #8a391f; --ink: #fbeedd; --foil: #f6d9a8; }
+.c-10 { --bg: #5d672c; --bg2: #3d4519; --ink: #f4eed4; --foil: #e6d48a; }
+.c-11 { --bg: #171a3c; --bg2: #0c0e22; --ink: #f1ead8; --foil: #d9b871; }
+.c-12 { --bg: #a9c0a0; --bg2: #8fab87; --ink: #1f3a2b; --foil: #2f5a3f; }
+.c-13 { --bg: #d9a3a0; --bg2: #c98985; --ink: #4a1722; --foil: #7a2030; }
+.c-14 { --bg: #9dbbd6; --bg2: #7fa3c4; --ink: #152c52; --foil: #1f3f78; }
+.c-15 { --bg: #2a2a2e; --bg2: #17171a; --ink: #f0e9da; --foil: #c9a25a; }
+.c-16 { --bg: #8d2f4f; --bg2: #5e1a33; --ink: #fbe9e6; --foil: #f0c2a6; }
+
+/* ------------------------------------------------------------ lettering */
+.gen-text {
+  position: absolute;
+  inset: 26cqw 12cqw 12cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.gen-title {
+  font-size: calc(var(--fs) * var(--ts, 1));
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: 0.005em;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--lines, 5);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.s-1 { --fs: 11.6cqw; }
+.s-2 { --fs: 9.8cqw; }
+.s-3 { --fs: 8.2cqw; }
+.s-4 { --fs: 7cqw; }
+.s-5 { --fs: 6cqw; } /* only for a title with a word too long for the sizes above */
+
+.t-2 .gen-title { font-style: italic; }
+.t-3.s-1 .gen-title,
+.t-3.s-2 .gen-title { text-transform: uppercase; letter-spacing: 0.07em; font-size: calc(var(--fs) * var(--ts, 1) * 0.84); }
+
+.gen-rule {
+  flex: none;
+  width: 14cqw;
+  height: 0.5cqw;
+  margin: 5cqw auto;
+  background: var(--foil);
+}
+
+.gen-author {
+  flex: none;
+  font-family: var(--font-ui);
+  font-size: 4.5cqw;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--foil);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------ patterns (on .gen-art) */
+.gen-art {
+  position: absolute;
+  background-color: var(--bg2);
+}
+
+.p-1 .gen-art { background-image: repeating-linear-gradient(45deg, var(--pc) 0 1.1cqw, transparent 1.1cqw 4.4cqw); }
+.p-2 .gen-art { background-image: radial-gradient(circle, var(--pc) 21%, transparent 24%); background-size: 6cqw 6cqw; }
+.p-3 .gen-art { background-image: repeating-linear-gradient(45deg, var(--pc) 0 0.5cqw, transparent 0.5cqw 6cqw), repeating-linear-gradient(-45deg, var(--pc) 0 0.5cqw, transparent 0.5cqw 6cqw); }
+.p-4 .gen-art { background-image: radial-gradient(circle at 50% 100%, transparent 58%, var(--pc) 60% 68%, transparent 70%), radial-gradient(circle at 0 50%, transparent 58%, var(--pc) 60% 68%, transparent 70%), radial-gradient(circle at 100% 50%, transparent 58%, var(--pc) 60% 68%, transparent 70%); background-size: 9cqw 6cqw; }
+.p-5 .gen-art { background-image: repeating-linear-gradient(90deg, var(--pc) 0 0.6cqw, transparent 0.6cqw 4cqw); }
+.p-6 .gen-art { background-image: linear-gradient(135deg, var(--pc) 25%, transparent 25%), linear-gradient(225deg, var(--pc) 25%, transparent 25%); background-size: 7cqw 7cqw; }
+.p-7 .gen-art { background-image: repeating-linear-gradient(0deg, var(--pc) 0 0.5cqw, transparent 0.5cqw 5.5cqw), repeating-linear-gradient(90deg, var(--pc) 0 0.5cqw, transparent 0.5cqw 5.5cqw); }
+.p-8 .gen-art { background-image: repeating-conic-gradient(from -4deg at 50% 100%, var(--pc) 0 4deg, transparent 4deg 12deg); }
+.p-9 .gen-art { background-image: radial-gradient(circle at 50% -40%, transparent 62%, var(--pc) 64% 72%, transparent 74%); background-size: 10cqw 5cqw; }
+.p-10 .gen-art { background-image: radial-gradient(circle, var(--pc) 12%, transparent 15%), radial-gradient(circle, var(--pc) 7%, transparent 10%); background-size: 11cqw 11cqw, 11cqw 11cqw; background-position: 0 0, 5.5cqw 5.5cqw; }
+
+/* ------------------------------------------------------------ emblems (on .gen-emb)
+   --em is the size of a story motif in this layout; an abstract ornament is drawn smaller.
+   --clear is the colour that fades the pattern out behind the emblem. */
+.gen-emb {
+  --es: calc(var(--em, 22cqw) * 0.62);
+  position: absolute;
+  left: 50%;
+  width: var(--es);
+  height: var(--es);
+  margin: calc(var(--es) / -2) 0 0 calc(var(--es) / -2);
+  isolation: isolate;
+}
+
+.gen-emb.m {
+  --es: var(--em, 22cqw);
+}
+
+.gen-emb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--foil);
+}
+
+.gen-emb::after {
+  content: '';
+  position: absolute;
+  inset: -26%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--clear, transparent) 60%, transparent);
+}
+
+.gen-emb.m::before {
+  display: none;
+}
+
+.gen-emb svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--foil);
+}
+
+.e-1 .gen-emb::before { border-radius: 50%; background: radial-gradient(circle at 68% 36%, transparent 46%, var(--foil) 48%); }
+.e-2 .gen-emb::before { clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); }
+.e-3 .gen-emb::before { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%, 50% 0, 50% 22%, 22% 50%, 50% 78%, 78% 50%, 50% 22%); }
+.e-4 .gen-emb::before { border-radius: 50%; background: radial-gradient(circle, var(--foil) 0 30%, transparent 32% 44%, var(--foil) 46% 50%, transparent 52%), repeating-conic-gradient(var(--foil) 0 7deg, transparent 7deg 22.5deg); }
+.e-5 .gen-emb::before { border-radius: 4% 96% 4% 96%; inset: 10%; }
+.e-6 .gen-emb::before { clip-path: polygon(50% 0, 58% 27%, 85% 15%, 73% 42%, 100% 50%, 73% 58%, 85% 85%, 58% 73%, 50% 100%, 42% 73%, 15% 85%, 27% 58%, 0 50%, 27% 42%, 15% 15%, 42% 27%); }
+.e-7 .gen-emb::before { border-radius: 50%; background: radial-gradient(circle, var(--foil) 0 16%, transparent 18% 56%, var(--foil) 58% 68%, transparent 70%); }
+.e-8 .gen-emb::before { background: radial-gradient(circle at 50% 25%, var(--foil) 23%, transparent 24.5%), radial-gradient(circle at 50% 75%, var(--foil) 23%, transparent 24.5%), radial-gradient(circle at 25% 50%, var(--foil) 23%, transparent 24.5%), radial-gradient(circle at 75% 50%, var(--foil) 23%, transparent 24.5%); }
+
+/* ------------------------------------------------------------ layouts */
+
+/* 1. Framed: a double rule, an emblem above the title. */
+.l-1 .gen-art { display: none; }
+.l-1::before,
+.l-1::after { content: ''; position: absolute; pointer-events: none; }
+.l-1::before { inset: 6cqw; border: 0.6cqw solid var(--foil); border-radius: 1cqw; opacity: 0.9; }
+.l-1::after { inset: 8.4cqw; border: 0.3cqw solid var(--foil); opacity: 0.55; }
+.l-1 .gen-emb { top: 30cqw; --em: 26cqw; }
+.l-1 .gen-text { inset: 45cqw 14cqw 15cqw; --lines: 4; }
+
+/* 2. Band: the title on a foil band across a patterned cover, the emblem above it. */
+.l-2 .gen-art { inset: 0; background-color: transparent; opacity: 0.55; }
+.l-2 .gen-emb { top: 27cqw; --em: 27cqw; --clear: var(--bg); }
+.l-2 .gen-text { inset: 8cqw 0 0; }
+/* The band's top and bottom are borders, not padding: lines past the clamp would show in padding. */
+.l-2 .gen-title { padding: 0 9cqw; border: solid var(--foil); border-width: 7cqw 0; background: var(--foil); color: var(--bg2); box-shadow: 0 -1.6cqw 0 -1.1cqw var(--foil), 0 1.6cqw 0 -1.1cqw var(--foil); --lines: 4; }
+.l-2 .gen-rule { display: none; }
+.l-2 .gen-author { position: absolute; left: 9cqw; right: 9cqw; bottom: 10cqw; }
+
+/* 3. Panel: a patterned panel with the emblem above, the title set left below. */
+.l-3 .gen-art { inset: 0 0 46% 0; border-bottom: 0.8cqw solid var(--foil); }
+.l-3 .gen-emb { top: 40.5cqw; --em: 40cqw; --clear: var(--bg2); }
+.l-3 .gen-text { inset: 88cqw 9cqw 9cqw; justify-content: flex-start; text-align: left; --lines: 4; --ts: 0.92; }
+.l-3 .gen-rule { margin: 3.5cqw 0; }
+
+/* 4. Arch: an arched window with an emblem. */
+.l-4 .gen-art { left: 19cqw; right: 19cqw; top: 13cqw; height: 66cqw; border-radius: 31cqw 31cqw 0 0; box-shadow: 0 0 0 0.7cqw var(--foil), 0 0 0 2.4cqw var(--bg), 0 0 0 2.8cqw color-mix(in srgb, var(--foil) 55%, transparent); }
+.l-4 .gen-emb { top: 48cqw; --em: 34cqw; --clear: var(--bg2); }
+.l-4 .gen-text { inset: 86cqw 10cqw 9cqw; --lines: 3; --ts: 0.9; }
+.l-4 .gen-rule { margin: 3.2cqw auto; }
+
+/* 5. Medallion: a ringed disc with an emblem. */
+.l-5::before { content: ''; position: absolute; inset: 5cqw; border: 0.4cqw solid var(--foil); opacity: 0.55; pointer-events: none; }
+.l-5 .gen-art { left: 50%; top: 17cqw; width: 44cqw; height: 44cqw; margin-left: -22cqw; border-radius: 50%; box-shadow: 0 0 0 0.8cqw var(--foil), 0 0 0 3cqw var(--bg), 0 0 0 3.4cqw color-mix(in srgb, var(--foil) 55%, transparent); }
+.l-5 .gen-emb { top: 39cqw; --em: 27cqw; --clear: var(--bg2); }
+.l-5 .gen-text { inset: 72cqw 12cqw 12cqw; --lines: 4; --ts: 0.94; }
+.l-5 .gen-rule { margin: 3.6cqw auto; }
+
+/* 6. Spine: a patterned stripe down the left, the title set left beside it, the emblem below.
+   (In this layout and in 8 the title starts 16-17cqw down, clear of the "New" badge, the tick
+   and the selection checkbox that the library draws over the top corners of a cover.) */
+.l-6 .gen-art { inset: 0 auto 0 0; width: 21cqw; border-right: 0.8cqw solid var(--foil); }
+.l-6 .gen-emb { left: calc(29cqw + var(--es) / 2); top: 100cqw; --em: 26cqw; }
+.l-6 .gen-text { inset: 16cqw 8cqw 11cqw 29cqw; justify-content: space-between; text-align: left; --lines: 5; }
+.l-6 .gen-rule { display: none; }
+.l-6 .gen-author { -webkit-line-clamp: 3; letter-spacing: 0.12em; }
+
+/* 7. Label: a pasted label on a patterned cover, the emblem above it. */
+.l-7 .gen-art { inset: 0; background-color: transparent; }
+.l-7 .gen-emb { top: 21cqw; --em: 24cqw; --clear: var(--bg); }
+.l-7 .gen-text { inset: auto 10cqw; top: 58%; transform: translateY(-50%); padding: 8cqw 6cqw; background: var(--ink); color: var(--bg2); outline: 0.4cqw solid var(--bg2); outline-offset: -2cqw; box-shadow: 0 1.2cqw 3.5cqw rgba(0, 0, 0, 0.28); --lines: 4; --ts: 0.9; }
+.l-7 .gen-rule { background: var(--bg2); margin: 3.6cqw auto; }
+.l-7 .gen-author { color: var(--bg2); opacity: 0.8; }
+
+/* 8. Slant: a patterned field cut on the diagonal, the emblem in it. */
+.l-8 .gen-art { inset: 0; clip-path: polygon(0 69.4%, 100% 43.4%, 100% 100%, 0 100%); }
+.l-8 .gen-emb { left: 67cqw; top: 118cqw; --em: 36cqw; --clear: var(--bg2); }
+.l-8 .gen-text { inset: 17cqw 9cqw auto; justify-content: flex-start; text-align: left; --lines: 4; }
+.l-8 .gen-rule { margin: 3.6cqw 0; }
+
+/* ------------------------------------------------------------ very small covers show the design without lettering */
+.cover.tiny .gen-text,
+.cover.tiny .badge {
+  display: none;
+}

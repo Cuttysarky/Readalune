@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; worker-src 'self' blob:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Readalune</title>
+    <link rel="stylesheet" href="styles/app.css" />
+    <link rel="stylesheet" href="styles/reader.css" />
+    <link rel="stylesheet" href="styles/premium.css" />
+    <link rel="stylesheet" href="styles/covers.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <!-- ============================== LIBRARY ============================== -->
+    <section id="library-view" class="view" aria-label="Library">
+      <header class="lib-header">
+        <div class="brand">
+          <img src="assets/logo.png" alt="" class="brand-mark" width="28" height="28" />
+          <span class="brand-name">Readalune</span>
+        </div>
+        <nav class="lib-tabs" role="tablist" aria-label="Sections">
+          <button role="tab" data-tab="books" aria-selected="true">Library</button>
+          <button role="tab" data-tab="classics" aria-selected="false">Classics</button>
+          <button role="tab" data-tab="notes" aria-selected="false">Notes</button>
+          <button role="tab" data-tab="words" aria-selected="false">Word Journal</button>
+          <button role="tab" data-tab="stats" aria-selected="false">Reading Stats</button>
+        </nav>
+        <div class="lib-actions">
+          <button class="btn primary" id="import-btn" data-icon="upload">Import</button>
+          <button class="icon-btn" id="lib-settings-btn" data-icon="settings" title="Settings" aria-label="Settings"></button>
+          <button class="icon-btn" id="lib-about-btn" data-icon="info" title="About &amp; legal" aria-label="About and legal"></button>
+        </div>
+      </header>
+
+      <main class="lib-main">
+        <!-- Books tab -->
+        <div class="tab-panel" data-panel="books">
+          <div id="continue-card" class="continue-card" hidden></div>
+          <div class="lib-toolbar">
+            <div class="search-field">
+              <span data-icon="search" class="field-icon"></span>
+              <input id="lib-search" type="search" placeholder="Search books" aria-label="Search title, author, series or tag" title="Search by title, author, series or tag" />
+            </div>
+            <label class="check small" title="Also search the text of every book"><input type="checkbox" id="lib-deep" /> Search inside books</label>
+            <div class="spacer"></div>
+            <button class="btn small" id="lib-select" data-icon="check">Select</button>
+            <label class="select-label">Sort
+              <select id="lib-sort">
+                <option value="recent">Recently read</option>
+                <option value="added">Recently added</option>
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+                <option value="progress">Progress</option>
+                <option value="series">Series</option>
+                <option value="rating">Rating</option>
+              </select>
+            </label>
+            <div class="seg" role="group" aria-label="View">
+              <button class="icon-btn small" data-view="grid" data-icon="grid" title="Grid" aria-label="Grid view"></button>
+              <button class="icon-btn small" data-view="list" data-icon="rows" title="List" aria-label="List view"></button>
+            </div>
+          </div>
+          <div class="chips" id="lib-filters" role="group" aria-label="Filter"></div>
+          <div class="bulk-bar" id="bulk-bar" hidden></div>
+          <div id="book-grid" class="book-grid"></div>
+          <div id="lib-empty" class="empty-state" hidden>
+            <img src="assets/logo.png" alt="" width="72" height="72" />
+            <h2>Your reading room is empty</h2>
+            <p>Import a text file, Markdown, HTML, EPUB or PDF &mdash; or drop files anywhere on this window.</p>
+            <div class="row">
+              <button class="btn primary" id="empty-import" data-icon="upload">Import books</button>
+              <button class="btn" id="empty-sample" data-icon="book">Open the welcome guide</button>
+            </div>
+          </div>
+          <div id="lib-noresults" class="empty-state small" hidden><p>No books match your search.</p></div>
+        </div>
+
+        <!-- Classics tab -->
+        <div class="tab-panel" data-panel="classics" hidden>
+          <section class="classics-hero">
+            <div class="eyebrow">Included with Readalune</div>
+            <h2>A thousand timeless books</h2>
+            <p>Novels, adventures, poetry, plays and great ideas, ready whenever you are.</p>
+          </section>
+          <div class="panel-head">
+            <div class="chips" id="classics-shelves" role="group" aria-label="Shelf"></div>
+            <div class="spacer"></div>
+            <div class="search-field">
+              <span data-icon="search" class="field-icon"></span>
+              <input id="classics-search" type="search" placeholder="Search classics" aria-label="Search classics" />
+            </div>
+          </div>
+          <div id="classics-body" class="book-grid grid"></div>
+          <div class="show-more"><button class="btn" id="classics-more" hidden>Show more</button></div>
+          <p class="classics-note muted small">These books come from Project Gutenberg, which lists them as public domain in the United States. Copyright terms differ between countries, so check the rules where you live. Details are in About (the i button), under Legal.</p>
+        </div>
+
+        <!-- Notes tab -->
+        <div class="tab-panel" data-panel="notes" hidden>
+          <div class="panel-head">
+            <h2>Notes &amp; highlights</h2>
+            <div class="search-field">
+              <span data-icon="search" class="field-icon"></span>
+              <input id="notes-search" type="search" placeholder="Search notes" aria-label="Search notes" />
+            </div>
+          </div>
+          <div id="all-notes" class="notes-list"></div>
+        </div>
+
+        <!-- Word journal tab -->
+        <div class="tab-panel" data-panel="words" hidden>
+          <div class="panel-head">
+            <h2>Word Journal</h2>
+            <p class="muted" id="words-summary"></p>
+            <div class="spacer"></div>
+            <label class="check small"><input type="checkbox" id="words-hide-learned" /> Hide learned words</label>
+            <button class="btn" id="words-export" data-icon="download">Export CSV</button>
+          </div>
+          <div id="word-list" class="word-list"></div>
+        </div>
+
+        <!-- Stats tab -->
+        <div class="tab-panel" data-panel="stats" hidden>
+          <div class="panel-head"><h2>Reading stats</h2></div>
+          <div id="stats-body" class="stats-body"></div>
+        </div>
+      </main>
+    </section>
+
+    <!-- ============================== READER ============================== -->
+    <section id="reader-view" class="view" hidden aria-label="Reader">
+      <div class="reader-root" id="reader-root">
+        <header class="reader-top" id="reader-top">
+          <div class="rt-left">
+            <button class="icon-btn" id="r-back" data-icon="back" title="Back to library (Esc)" aria-label="Back to library"></button>
+            <button class="icon-btn" id="r-toc" data-icon="toc" title="Contents (T)" aria-label="Contents"></button>
+          </div>
+          <div class="rt-title" id="r-title"></div>
+          <div class="rt-right">
+            <button class="icon-btn" id="r-search" data-icon="search" title="Search in book (Ctrl+F)" aria-label="Search in book"></button>
+            <button class="icon-btn" id="r-notes" data-icon="notes" title="Notes &amp; bookmarks (N)" aria-label="Notes and bookmarks"></button>
+            <button class="icon-btn" id="r-tts" data-icon="speaker" title="Read aloud (R)" aria-label="Read aloud"></button>
+            <button class="icon-btn text-btn" id="r-display" title="Reading settings (A)" aria-label="Reading settings">Aa</button>
+            <button class="icon-btn" id="r-bookmark" data-icon="bookmark" title="Bookmark this page (B)" aria-label="Bookmark this page"></button>
+            <button class="icon-btn" id="r-fullscreen" data-icon="expand" title="Full screen (F11)" aria-label="Full screen"></button>
+            <button class="icon-btn" id="r-more" data-icon="more" title="More" aria-label="More options"></button>
+          </div>
+        </header>
+
+        <div class="page-band top" id="band-top"><span id="band-chapter"></span></div>
+
+        <div class="page-area" id="page-area">
+          <div class="page-viewport" id="page-viewport">
+            <div class="page-content" id="page-content" lang="en"></div>
+          </div>
+          <div class="page-measure-wrap" id="page-measure-wrap" aria-hidden="true">
+            <div class="page-content measure" id="page-measure"></div>
+          </div>
+          <div class="ribbon" id="ribbon" hidden></div>
+          <button class="tap-zone prev" id="tap-prev" tabindex="-1" aria-label="Previous page"></button>
+          <button class="tap-zone next" id="tap-next" tabindex="-1" aria-label="Next page"></button>
+          <div class="spread-spine" id="spread-spine" hidden></div>
+        </div>
+
+        <footer class="page-band bottom" id="band-bottom">
+          <button class="info-left" id="info-left" title="Click to change what is shown"></button>
+          <div class="progress" id="progress" role="slider" aria-label="Book progress" tabindex="0">
+            <div class="progress-track"><div class="progress-fill" id="progress-fill"></div><div class="progress-ticks" id="progress-ticks"></div></div>
+            <div class="progress-tip" id="progress-tip" hidden></div>
+          </div>
+          <span class="info-right" id="info-right"></span>
+        </footer>
+
+        <div class="dim-layer" id="dim-layer"></div>
+        <div class="warm-layer" id="warm-layer"></div>
+
+        <button class="back-pill" id="back-pill" hidden data-icon="history"></button>
+
+        <!-- Selection / highlight menu -->
+        <div class="sel-menu" id="sel-menu" hidden role="toolbar" aria-label="Selection">
+          <div class="swatches" id="sel-swatches"></div>
+          <span class="sep"></span>
+          <button data-act="note" data-icon="edit">Note</button>
+          <button data-act="copy" data-icon="copy">Copy</button>
+          <button data-act="word" data-icon="words">Save word</button>
+          <button data-act="search" data-icon="search">Search</button>
+          <button data-act="speak" data-icon="speaker">Read</button>
+          <button data-act="quote" data-icon="share">Quote</button>
+          <button data-act="delete" data-icon="trash" class="danger">Remove</button>
+        </div>
+
+        <!-- Side drawers -->
+        <aside class="drawer left" id="drawer-toc" hidden aria-label="Contents">
+          <div class="drawer-head"><h3>Contents</h3><button class="icon-btn small" data-close data-icon="close" aria-label="Close"></button></div>
+          <div class="drawer-sub" id="toc-book"></div>
+          <ol class="toc-list" id="toc-list"></ol>
+        </aside>
+
+        <aside class="drawer right" id="drawer-search" hidden aria-label="Search">
+          <div class="drawer-head"><h3>Search</h3><button class="icon-btn small" data-close data-icon="close" aria-label="Close"></button></div>
+          <div class="search-field wide">
+            <span data-icon="search" class="field-icon"></span>
+            <input id="book-search" type="search" placeholder="Search this book" aria-label="Search this book" />
+          </div>
+          <label class="check"><input type="checkbox" id="search-whole" /> Whole words</label>
+          <div class="drawer-sub" id="search-summary"></div>
+          <ol class="result-list" id="search-results"></ol>
+        </aside>
+
+        <aside class="drawer right" id="drawer-notes" hidden aria-label="Notes and bookmarks">
+          <div class="drawer-head"><h3>Notes &amp; bookmarks</h3><button class="icon-btn small" data-close data-icon="close" aria-label="Close"></button></div>
+          <div class="seg tabs" role="tablist">
+            <button role="tab" data-ntab="highlights" aria-selected="true">Highlights</button>
+            <button role="tab" data-ntab="bookmarks" aria-selected="false">Bookmarks</button>
+          </div>
+          <div class="chips small" id="notes-filter"></div>
+          <ol class="notes-list compact" id="notes-items"></ol>
+          <div class="drawer-foot"><button class="btn" id="notes-export" data-icon="download">Export notes</button></div>
+        </aside>
+
+        <aside class="drawer right" id="drawer-display" hidden aria-label="Reading settings">
+          <div class="drawer-head"><h3>Reading settings</h3><button class="icon-btn small" data-close data-icon="close" aria-label="Close"></button></div>
+          <label class="check book-only"><input type="checkbox" id="set-book-only" /> Use these settings for this book only</label>
+          <div class="setting-group pages-only">
+            <div class="setting-label">Fit</div>
+            <div class="seg full comic-only" id="set-comic-fit"></div>
+            <div class="seg full pdf-only" id="set-pdf-fit"></div>
+          </div>
+          <div class="setting-group pages-only comic-only">
+            <div class="setting-label">Pages side by side</div>
+            <div class="seg full" id="set-comic-spread"></div>
+          </div>
+          <div class="setting-group pages-only comic-only">
+            <div class="setting-label">Reading direction</div>
+            <div class="seg full" id="set-comic-dir"></div>
+          </div>
+          <div class="setting-group pages-only pdf-only">
+            <label class="check"><input type="checkbox" id="set-pdf-crop" /> Crop page margins</label>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Theme</div>
+            <div class="theme-swatches" id="theme-swatches"></div>
+          </div>
+          <div class="setting-group text-only">
+            <div class="setting-label">View</div>
+            <div class="seg full" id="set-flow"></div>
+          </div>
+          <div class="setting-group text-only">
+            <div class="setting-label">Font</div>
+            <select id="set-font" class="full"></select>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Text size <span id="size-value" class="muted"></span></div>
+            <div class="stepper">
+              <button class="btn small" id="size-down" aria-label="Smaller text">A&minus;</button>
+              <input type="range" id="set-size" min="12" max="40" step="1" aria-label="Text size" />
+              <button class="btn small big-a" id="size-up" aria-label="Larger text">A+</button>
+            </div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Line spacing</div>
+            <div class="seg full" id="set-spacing"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Margins</div>
+            <div class="seg full" id="set-margins"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Alignment</div>
+            <div class="seg full" id="set-align"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Page layout</div>
+            <div class="seg full" id="set-layout"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Paragraphs</div>
+            <div class="seg full" id="set-para"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Page turn</div>
+            <div class="seg full" id="set-anim"></div>
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Brightness</div>
+            <input type="range" id="set-bright" min="40" max="100" step="1" class="full" aria-label="Brightness" />
+          </div>
+          <div class="setting-group">
+            <div class="setting-label">Warm light</div>
+            <input type="range" id="set-warm" min="0" max="100" step="1" class="full" aria-label="Warm light" />
+          </div>
+          <div class="setting-group">
+            <label class="check"><input type="checkbox" id="set-hyphen" /> Hyphenate words</label>
+            <label class="check"><input type="checkbox" id="set-footer" /> Show reading progress</label>
+            <label class="check"><input type="checkbox" id="set-taps" /> Click page edges to turn pages</label>
+          </div>
+          <div class="drawer-foot"><button class="btn" id="set-reset">Reset to defaults</button></div>
+        </aside>
+
+        <!-- Read aloud bar -->
+        <div class="tts-bar" id="tts-bar" hidden>
+          <button class="icon-btn" id="tts-play" data-icon="pause" aria-label="Pause"></button>
+          <button class="icon-btn" id="tts-stop" data-icon="stop" aria-label="Stop"></button>
+          <label class="tts-rate">Speed <input type="range" id="tts-rate" min="0.6" max="2" step="0.1" /> <span id="tts-rate-val"></span></label>
+          <select id="tts-voice" aria-label="Voice"></select>
+          <select id="tts-sleep" aria-label="Sleep timer" title="Sleep timer">
+            <option value="0">No timer</option>
+            <option value="5">Stop in 5 min</option>
+            <option value="15">Stop in 15 min</option>
+            <option value="30">Stop in 30 min</option>
+            <option value="45">Stop in 45 min</option>
+            <option value="60">Stop in 1 hour</option>
+            <option value="-1">End of chapter</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== DIALOGS / OVERLAYS ============================== -->
+    <dialog id="modal" class="modal"></dialog>
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+    <div id="drop-overlay" class="drop-overlay" hidden><div>Drop books to import</div></div>
+    <div id="busy" class="busy" hidden><div class="busy-card"><div class="spinner"></div><div id="busy-text">Importing&hellip;</div><div class="busy-bar"><div id="busy-fill"></div></div></div></div>
+  </body>
+</html>

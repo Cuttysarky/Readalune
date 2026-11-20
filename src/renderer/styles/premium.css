@@ -1,0 +1,801 @@
+/*
+ * Readalune - premium visual layer. Loaded after app.css and reader.css.
+ * Ivory & midnight ink in light mode, midnight & champagne gold in dark mode,
+ * a book serif for display type, and quieter, more tactile surfaces.
+ */
+
+:root {
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', 'P052', 'URW Palladio L', Georgia, serif;
+  --bg: #f6f2ea;
+  --surface: #fffdf8;
+  --surface-2: #f0e9dd;
+  --text: #1e1b23;
+  --muted: #6d665d;
+  --border: #e5dccd;
+  --accent: #2e2a6a;
+  --accent-ink: #fffdf8;
+  --accent-soft: rgba(46, 42, 106, 0.08);
+  --gold: #b0843a;
+  --gold-soft: rgba(176, 132, 58, 0.13);
+  --radius: 14px;
+  --radius-sm: 9px;
+  --shadow: 0 1px 2px rgba(30, 27, 35, 0.04), 0 12px 32px -14px rgba(30, 27, 35, 0.22);
+  --shadow-lg: 0 24px 70px -20px rgba(20, 16, 30, 0.45);
+}
+
+:root[data-app-theme='dark'] {
+  --bg: #111017;
+  --surface: #1a1922;
+  --surface-2: #23212c;
+  --text: #ede8df;
+  --muted: #9d968b;
+  --border: #2d2a36;
+  --accent: #cfa962;
+  --accent-ink: #15131b;
+  --accent-soft: rgba(207, 169, 98, 0.14);
+  --gold: #d6b26d;
+  --gold-soft: rgba(214, 178, 109, 0.14);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 14px 34px -14px rgba(0, 0, 0, 0.6);
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 15% -10%, var(--gold-soft), transparent 60%),
+    radial-gradient(900px 500px at 110% 0%, var(--accent-soft), transparent 55%),
+    var(--bg);
+  letter-spacing: 0.005em;
+}
+
+::selection {
+  background: var(--gold-soft);
+}
+
+/* ---------------------------------------------------------------- header */
+
+.lib-header {
+  height: 66px;
+  padding: 0 32px;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  backdrop-filter: blur(16px) saturate(1.15);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+.brand-name {
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.brand-mark {
+  filter: drop-shadow(0 3px 8px rgba(46, 42, 106, 0.28));
+}
+
+.lib-tabs {
+  gap: 6px;
+  margin-left: 26px;
+}
+
+.lib-tabs button {
+  position: relative;
+  background: none !important;
+  border-radius: 0;
+  height: 66px;
+  padding: 0 12px;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+}
+
+.lib-tabs button::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 200ms var(--ease);
+}
+
+.lib-tabs button[aria-selected='true']::after {
+  transform: scaleX(1);
+}
+
+.lib-main {
+  padding: 30px 36px 70px;
+}
+
+/* Narrow windows (the smallest is 720px wide): keep every tab on one line and
+   Import, Settings and About on screen. */
+.lib-tabs {
+  min-width: 0;
+  overflow-x: clip;
+}
+
+.lib-tabs button {
+  white-space: nowrap;
+}
+
+.lib-actions {
+  flex: none;
+}
+
+@media (max-width: 980px) {
+  .lib-header {
+    padding: 0 18px;
+    gap: 12px;
+  }
+
+  .lib-tabs {
+    gap: 0;
+    margin-left: 6px;
+  }
+
+  .lib-tabs button {
+    padding: 0 9px;
+  }
+
+  .lib-tabs button::after {
+    left: 9px;
+    right: 9px;
+  }
+}
+
+@media (max-width: 860px) {
+  .brand-name {
+    display: none;
+  }
+}
+
+@media (max-width: 780px) {
+  .lib-header {
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  .lib-tabs {
+    margin-left: 4px;
+  }
+
+  .lib-tabs button {
+    padding: 0 7px;
+  }
+
+  .lib-tabs button::after {
+    left: 7px;
+    right: 7px;
+  }
+}
+
+/* ---------------------------------------------------------------- buttons & chips */
+
+.btn {
+  border-radius: 999px;
+  height: 36px;
+  padding: 0 16px;
+  border-color: var(--border);
+  background: var(--surface);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 1px 2px rgba(30, 27, 35, 0.04);
+}
+
+.btn:hover {
+  background: var(--surface-2);
+  border-color: color-mix(in srgb, var(--gold) 35%, var(--border));
+}
+
+.btn.primary {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 86%, white), var(--accent));
+  border-color: transparent;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 6px 16px -6px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
+.btn.primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btn.small {
+  height: 30px;
+  padding: 0 12px;
+}
+
+.chip {
+  height: 30px;
+  padding: 0 14px;
+  border-color: var(--border);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+
+.chip.on {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+.chip.on .chip-count {
+  background: color-mix(in srgb, var(--bg) 22%, transparent);
+  color: var(--bg);
+}
+
+input[type='text'],
+input[type='search'],
+input[type='number'],
+input[type='password'],
+textarea,
+select {
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.search-field input {
+  border-radius: 999px;
+  height: 38px;
+  width: 260px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-soft);
+}
+
+/* ---------------------------------------------------------------- headings */
+
+.panel-head h2,
+.empty-state h2,
+.continue-body h2,
+.word-head h3,
+.note-group h3,
+.deep-result h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.panel-head h2 {
+  font-size: 30px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  font-size: 10.5px;
+}
+
+/* ---------------------------------------------------------------- continue reading */
+
+.continue-card {
+  gap: 30px;
+  padding: 26px 30px;
+  border-radius: 20px;
+  background:
+    radial-gradient(600px 220px at 100% 0%, var(--gold-soft), transparent 70%),
+    linear-gradient(135deg, var(--surface), color-mix(in srgb, var(--surface) 92%, var(--accent)));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.continue-card .cover.small {
+  width: 116px;
+}
+
+.continue-body h2 {
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.continue-body .progress-line .fill,
+.bar .fill {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 70%, white), var(--gold));
+}
+
+.bar {
+  height: 3px;
+}
+
+/* ---------------------------------------------------------------- book covers */
+
+.book-grid.grid {
+  grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+  gap: 38px 28px;
+}
+
+.cover {
+  border-radius: 3px 7px 7px 3px;
+  box-shadow:
+    /* a block of pages on the right edge */
+    2px 1px 0 -0.5px #f7f2e7,
+    3px 2px 0 -0.5px #e6dfd0,
+    4px 3px 0 -0.5px #f7f2e7,
+    5px 4px 0 -0.5px rgba(0, 0, 0, 0.12),
+    0 18px 30px -16px rgba(20, 16, 30, 0.55),
+    0 2px 6px rgba(20, 16, 30, 0.14);
+}
+
+:root[data-app-theme='dark'] .cover {
+  box-shadow:
+    2px 1px 0 -0.5px #d9d2c4,
+    3px 2px 0 -0.5px #b9b2a4,
+    4px 3px 0 -0.5px #d9d2c4,
+    5px 4px 0 -0.5px rgba(0, 0, 0, 0.4),
+    0 18px 30px -14px rgba(0, 0, 0, 0.8);
+}
+
+.cover::after {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(255, 255, 255, 0.12) 2.5%, rgba(0, 0, 0, 0.06) 4%, transparent 9%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 30%);
+}
+
+.cover-btn {
+  transition: transform 260ms var(--ease), filter 260ms;
+}
+
+.cover-btn:hover {
+  transform: translateY(-6px);
+  filter: saturate(1.06);
+}
+
+.cover.tiny {
+  box-shadow: 0 2px 6px rgba(20, 16, 30, 0.22);
+}
+
+/* (Stated again for the dark theme, whose page-block shadow above would otherwise win.) */
+:root[data-app-theme='dark'] .cover.tiny {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  margin-top: 4px;
+}
+
+.card-author {
+  font-size: 12.5px;
+}
+
+.cover .badge {
+  background: color-mix(in srgb, var(--text) 82%, transparent);
+  color: var(--bg);
+  backdrop-filter: blur(6px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 9.5px;
+}
+
+.cover .badge.done {
+  background: var(--gold);
+  color: #fff;
+}
+
+.book-row:hover {
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+}
+
+.series-heading {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.stars {
+  color: var(--gold);
+}
+
+.star-input .star.on {
+  color: var(--gold);
+}
+
+/* ---------------------------------------------------------------- cards, notes, stats */
+
+.stat-card,
+.word-card,
+.note,
+.deep-result,
+.bar-chart,
+.bulk-bar {
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  box-shadow: 0 1px 2px rgba(30, 27, 35, 0.03);
+}
+
+/* The selection bar stays in place while covers scroll beneath it, so it must not be see-through. */
+.bulk-bar {
+  background: var(--surface);
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  /* A long value ("43 h 46 min") in a narrow card breaks into even lines, not one stray word. */
+  text-wrap: balance;
+}
+
+.stat-label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 10.5px;
+}
+
+.bar-v {
+  background: linear-gradient(180deg, var(--gold), color-mix(in srgb, var(--gold) 45%, transparent));
+}
+
+.note-text,
+.word-context {
+  font-family: var(--font-display);
+}
+
+/* ---------------------------------------------------------------- dialogs, menus, toasts */
+
+.modal {
+  border-radius: 20px;
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.modal::backdrop {
+  background: rgba(14, 12, 22, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-head h2 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.modal-head {
+  padding: 20px 20px 8px 26px;
+}
+
+.modal-body {
+  padding: 6px 26px 26px;
+}
+
+.popup-menu {
+  border-radius: 14px;
+  padding: 6px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.toast {
+  border-radius: 999px;
+  padding: 10px 18px 10px 16px;
+  background: color-mix(in srgb, #17151f 94%, transparent);
+  backdrop-filter: blur(10px);
+  border-left: 0;
+  box-shadow: 0 0 0 1px rgba(233, 205, 150, 0.25), var(--shadow-lg);
+}
+
+.toast.success {
+  box-shadow: 0 0 0 1px rgba(111, 211, 148, 0.35), var(--shadow-lg);
+}
+
+.toast.error {
+  box-shadow: 0 0 0 1px rgba(255, 123, 107, 0.45), var(--shadow-lg);
+}
+
+/* ---------------------------------------------------------------- classics hero */
+
+.classics-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 34px;
+  margin-bottom: 22px;
+  border-radius: 22px;
+  color: #f6eedc;
+  background:
+    radial-gradient(500px 240px at 90% 10%, rgba(233, 205, 150, 0.28), transparent 70%),
+    linear-gradient(135deg, #24204f, #14122b);
+  box-shadow: var(--shadow);
+}
+
+.classics-hero h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 32px;
+  color: #fbf4e4;
+}
+
+.classics-hero p {
+  margin: 0;
+  max-width: 640px;
+  color: rgba(246, 238, 220, 0.78);
+  line-height: 1.55;
+}
+
+.classics-hero .eyebrow {
+  color: #e9cd96;
+  margin-bottom: 8px;
+}
+
+/* ---------------------------------------------------------------- reading goal & finish card */
+
+.goal-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 20px 24px;
+  margin-bottom: 26px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--surface), color-mix(in srgb, var(--surface) 90%, var(--gold)));
+}
+
+.goal-ring {
+  --p: 0;
+  width: 84px;
+  height: 84px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--gold) calc(var(--p) * 1%), color-mix(in srgb, var(--text) 10%, transparent) 0);
+}
+
+.goal-ring span {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.goal-text h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.finish-card {
+  text-align: center;
+}
+
+.finish-card .finish-mark {
+  width: 64px;
+  height: 64px;
+  margin: 4px auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+.finish-card h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.finish-stats {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  margin: 18px 0;
+}
+
+.finish-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.finish-stats strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.finish-stats span {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.finish-card .star-input {
+  justify-content: center;
+}
+
+.finish-card .modal-actions {
+  justify-content: center;
+}
+
+/* ---------------------------------------------------------------- reader chrome */
+
+.reader-top {
+  height: 54px;
+  background: color-mix(in srgb, var(--page-bg) 78%, transparent);
+  backdrop-filter: blur(18px) saturate(1.2);
+  border-bottom: 1px solid color-mix(in srgb, var(--page-fg) 9%, transparent);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.35);
+}
+
+.rt-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+
+.page-band {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.page-band.top span {
+  font-family: var(--font-display);
+  font-style: italic;
+  letter-spacing: 0.03em;
+  font-size: 12.5px;
+}
+
+.info-left,
+.info-right {
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-track {
+  height: 2px;
+}
+
+.progress:hover .progress-track {
+  height: 4px;
+}
+
+.progress-fill {
+  position: relative;
+  opacity: 1;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--page-accent);
+  transform: translateY(-50%) scale(0);
+  transition: transform 150ms var(--ease);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--page-bg) 70%, transparent);
+}
+
+.progress:hover .progress-fill::after {
+  transform: translateY(-50%) scale(1);
+}
+
+.drawer {
+  top: 54px;
+  background: color-mix(in srgb, var(--page-bg) 90%, transparent);
+  backdrop-filter: blur(20px) saturate(1.2);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.45);
+  border-color: color-mix(in srgb, var(--page-fg) 9%, transparent);
+}
+
+.drawer-head h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.sel-menu {
+  border-radius: 16px;
+  padding: 6px;
+  background: color-mix(in srgb, #15131b 90%, transparent);
+  color: #f3ede2;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 0 1px rgba(233, 205, 150, 0.18), 0 18px 40px -12px rgba(0, 0, 0, 0.55);
+}
+
+.sel-menu > button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sel-menu .sep {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.back-pill,
+.tts-bar {
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--page-bg) 82%, transparent);
+  box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.45);
+}
+
+/* The gutter between two pages, like an open book. */
+.spread-spine {
+  width: 60px;
+  margin-left: -30px;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--page-fg) 5%, transparent) 46%, color-mix(in srgb, var(--page-fg) 9%, transparent) 50%, color-mix(in srgb, var(--page-fg) 5%, transparent) 54%, transparent);
+}
+
+/* A whisper of paper: soft vignette on light page themes. */
+.reader-root:is([data-theme='paper'], [data-theme='sage'], [data-theme='day']) .page-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(90, 60, 20, 0.07));
+}
+
+/* ---------------------------------------------------------------- book typography */
+
+/* Chapter openings: drop cap and small-caps first line, like a printed book
+   (not on a one-line opening paragraph, which render.js marks as .t-brief). */
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-p:not(.t-brief)::first-letter,
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-h3 + .t-p:not(.t-brief)::first-letter {
+  initial-letter: 3;
+  margin-right: 0.08em;
+  color: var(--page-accent);
+  font-weight: 600;
+}
+
+/* The big letter's left edge overhangs slightly; nudge it inside the page. */
+.page-content :is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-p:not(.t-brief),
+.page-content :is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-h3 + .t-p:not(.t-brief),
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-p.t-p:not(.t-brief),
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-h3 + .t-p.t-p:not(.t-brief) {
+  text-indent: 0.22em;
+}
+
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-p:not(.t-brief)::first-line,
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child + .t-h3 + .t-p:not(.t-brief)::first-line {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.035em;
+}
+
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+:is(.page-content, .flow-section) > :is(.t-h1, .t-h2):first-child::after {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin: 0.65em auto 0;
+  background: var(--page-accent);
+  opacity: 0.55;
+}
+
+.page-content .t-h3 {
+  font-variant-caps: all-small-caps;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.page-content .t-hr::before {
+  width: 16%;
+  border-top-color: color-mix(in srgb, var(--page-accent) 55%, transparent);
+}
+
+/* The logo artwork is a full square; round it like an app icon wherever it appears. */
+img[src='assets/logo.png'] {
+  border-radius: 22%;
+  object-fit: cover;
+}
+
+.brand-mark {
+  border-radius: 8px;
+}

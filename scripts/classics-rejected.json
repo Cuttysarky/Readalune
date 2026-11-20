@@ -1,0 +1,44 @@
+[
+ {
+  "id": 11339,
+  "match": "Aesop",
+  "published": 1867,
+  "shelf": "Children's",
+  "reason": "aut Aesop has no death date"
+ },
+ {
+  "id": 500,
+  "match": "Pinocchio",
+  "published": 1883,
+  "shelf": "Children's",
+  "reason": "trl Della Chiesa, Carol died 1972"
+ },
+ {
+  "id": 1448,
+  "match": "Heidi",
+  "published": 1881,
+  "shelf": "Children's",
+  "reason": "trl Edwards, Marion has no death date"
+ },
+ {
+  "id": 2542,
+  "match": "Doll's House",
+  "published": 1879,
+  "shelf": "Poetry & Drama",
+  "reason": "trl Sharp, R. Farquharson (Robert Farquharson) died 1945"
+ },
+ {
+  "id": 16328,
+  "match": "Beowulf",
+  "published": 1910,
+  "shelf": "Poetry & Drama",
+  "reason": "no author listed"
+ },
+ {
+  "id": 20203,
+  "match": "Autobiography of Benjamin Franklin",
+  "published": 1791,
+  "shelf": "Ideas",
+  "reason": "edt Pine, Frank Woodworth has no death date"
+ }
+]
