@@ -1,26 +1,20 @@
-# Contributing to Readalune
+# Contributing
 
-Thanks for helping! Readalune aims to be a calm, private, trustworthy reader. A few ground rules keep it that way.
+Readalune is published as a finished project. **It does not take pull requests or feature requests**, and it has no outside contributors.
 
-## Ground rules
+- **Want to change it?** The code is under the MIT License, so you are free to copy it and make your own version. Please give a changed version a different name and icon (see [LEGAL.md](LEGAL.md), section 6).
+- **Found a bug, or a book that should not be here?** See "Reporting a problem" in [LEGAL.md](LEGAL.md).
+- **Found a security problem?** See [SECURITY.md](SECURITY.md).
 
-1. **No DRM circumvention, ever.** Code that removes, bypasses or weakens DRM or copy protection will not be accepted.
-2. **No tracking.** No analytics, telemetry, ads or network calls, unless the user explicitly asks for them (such as opening a link).
-3. **No copyrighted material.** Only add text, fonts, icons, images or sounds you created yourself or that are public domain or compatibly licensed, and say where they came from in [NOTICE.md](NOTICE.md). New bundled books must pass the rules in `scripts/classics/` and `test/unit/classics.test.mjs`. Those rules only see Project Gutenberg's catalogue record, so also read the title page of the file: if it names a translator, editor or writer of an introduction who is not in the record, say so in your pull request (see [CLASSICS.md](CLASSICS.md#known-exceptions)).
-4. **Keep it safe.** Book content is untrusted. Never insert HTML strings into the page. Build elements with `document.createElement` / `textContent` (see `src/renderer/js/ui/dom.js`).
-5. **Keep source files ASCII.** Write special characters as escapes (`'—'`).
-
-## Getting started
+## Working on your own copy
 
 ```bash
 npm install
 npm start          # run the app
 npm test           # unit tests
 npm run check      # security checks
-npm run test:e2e   # end-to-end tests (Linux CI: xvfb-run -a npm run test:e2e)
+npm run test:e2e   # end-to-end tests (Linux: xvfb-run -a npm run test:e2e)
 ```
-
-## Project layout
 
 ```
 src/main/        privileged Electron process (window, storage, IPC validation)
@@ -33,9 +27,10 @@ test/e2e/        end-to-end tests driving the real app
 scripts/         maintainer scripts (icons, classics, security check)
 ```
 
-## Pull requests
+The rules the code follows, if you build on it:
 
-- Keep changes focused, and add or update tests.
-- Run `npm run verify` before opening a PR.
-- By contributing, you agree that your contribution is licensed under the MIT License, and you confirm that it is your own work or that you have the right to submit it.
-- Commits are public, including the name and email address in them. Use an address you are happy to show, for example GitHub's no-reply address.
+1. **No DRM circumvention.** Nothing here removes, bypasses or weakens DRM or copy protection.
+2. **No tracking.** No analytics, telemetry, ads or network calls.
+3. **No copyrighted material.** Bundled books must pass the rules in `scripts/classics/` and `test/unit/classics.test.mjs`; third-party material is listed in [NOTICE.md](NOTICE.md).
+4. **Book content is untrusted.** HTML strings are never inserted into the page; elements are built with `document.createElement` and `textContent` (see `src/renderer/js/ui/dom.js`).
+5. **Source files under `src/` are ASCII.** Special characters are written as escapes.

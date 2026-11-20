@@ -140,7 +140,7 @@ npm run test:e2e    # drives the real app (Linux: xvfb-run -a npm run test:e2e)
 npm run verify      # check + test + audit
 ```
 
-The UI is plain HTML, CSS and JavaScript modules, with no framework and no build step. See [CONTRIBUTING.md](CONTRIBUTING.md) for the project layout and rules.
+The UI is plain HTML, CSS and JavaScript modules, with no framework and no build step. See [CONTRIBUTING.md](CONTRIBUTING.md) for the project layout. The project does not take pull requests; you are welcome to make your own version under the MIT License.
 
 ## Legal
 
